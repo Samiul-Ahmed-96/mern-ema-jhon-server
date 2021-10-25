@@ -19,7 +19,12 @@ async function run() {
         const database = client.db('online_shop');
         const productCollection = database.collection('products');
         
-
+        //Get products api
+        app.get('/products',async(req,res)=>{
+            const cursor = productCollection.find({});
+            const products = await cursor.toArray();
+            res.send(products)
+        })
        
     }
     finally {
