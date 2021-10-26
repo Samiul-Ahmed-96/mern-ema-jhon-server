@@ -18,6 +18,7 @@ async function run() {
         console.log('db connected')
         const database = client.db('online_shop');
         const productCollection = database.collection('products');
+        const orderCollection = database.collection('orders');
         
         //Get products api
         app.get('/products',async(req,res)=>{
@@ -47,6 +48,12 @@ async function run() {
             res.json(products)
         })
        
+        //Add orders Api
+        app.post('/orders',async(req,res)=>{
+            const order =req.body;
+            const result = await orderCollection.insertOne(order);
+            res.json(result);
+        })
     }
     finally {
         // await client.close();
